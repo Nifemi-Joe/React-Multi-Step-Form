@@ -2,7 +2,15 @@ import {useState} from "react";
 import User from "../../img/user.png";
 import Phone from "../../img/phone.png";
 import Company from "../../img/company.png";
-import Email from "../../img/email.png"
+import Email from "../../img/email.png";
+import Development from "../../img/development.png"
+import Design from "../../img/design.png"
+import Marketing from "../../img/marketing.png"
+import Other from "../../img/other.png"
+import Radio from "../../img/radio.svg"
+import Radioactive from "../../img/radioactive.svg"
+import Submit from "../../img/submit.svg"
+
 const MultiStepForm = () => {
 	const [step, setStep] = useState(1);
 
@@ -41,6 +49,11 @@ const MultiStepForm = () => {
 						<h2>Our services</h2>
 						<p>Please select which service you are interested in.</p>
 					</div>
+					<div className={`header ${step === 3 ? 'active' : ''}`}>
+						<h2>What’s your project budget?</h2>
+						<p>Please select the project budget range you have in mind.</p>
+					</div>
+
 					<form onSubmit={(e) => e.preventDefault()} className={`form-step ${step === 1 ? 'active' : ''}`}>
 						{/* Your Form Step 1 Content */}
 						<div className="grid">
@@ -78,15 +91,47 @@ const MultiStepForm = () => {
 						{/* Your Form Step 2 Content */}
 						<div className="grid">
 							<div className="input-container">
-								<a href="#"></a>
+								<a href="#"><img src={Development} alt="Development"/><span>Development</span></a>
+							</div>
+							<div className="input-container">
+								<a href="#"><img src={Design} alt="Web Design"/><span>Web Design</span></a>
+							</div>
+							<div className="input-container">
+								<a href="#"><img src={Marketing} alt="Marketing"/><span>Marketing</span></a>
+							</div>
+							<div className="input-container">
+								<a href="#"><img src={Other} alt="Other"/><span>Other</span></a>
 							</div>
 						</div>
 					</form>
 					<form onSubmit={(e) => e.preventDefault()} className={`form-step ${step === 3 ? 'active' : ''}`}>
-						{/* Your Form Step 3 Content */}
+						<div className="grid">
+							<div className="input-container">
+								<a href="#"><img src={Radio} alt="Radio"/><span>$5.000 - $10.000</span></a>
+							</div>
+							<div className="input-container">
+								<a href="#"><img src={Radio} alt="Radio"/><span>$10.000 - $20.000</span></a>
+							</div>
+							<div className="input-container">
+								<a href="#"><img src={Radio} alt="Radio"/><span>$20.000 - $50.000</span></a>
+							</div>
+							<div className="input-container">
+								<a href="#"><img src={Radio} alt="Radio"/><span>$50.000 +</span></a>
+							</div>
+						</div>
 					</form>
 					<form onSubmit={(e) => e.preventDefault()} className={`form-step ${step === 4 ? 'active' : ''}`}>
-						{/* Your Form Step 4 Content */}
+						<div className="container">
+							<div>
+								<img src={Submit} alt="Submit"/>
+							</div>
+							<div className="header active">
+								<h2>Submit your quote request</h2>
+								<p>Please review all the information you previously typed in the past steps, and if all
+									is okay, submit your message to receive a project quote in 24 - 48 hours.</p>
+							</div>
+							<button onClick={nextStep} className="next">Submit</button>
+						</div>
 					</form>
 				</div>
 			</div>

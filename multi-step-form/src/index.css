@@ -150,11 +150,11 @@ body {
 }
 
 .form-step {
-    margin-top: 20px;
+    margin-top: 5px;
     opacity: 0;
     height: 0;
     visibility: hidden;
-    transition: all 0.3s ease-in;
+    transition: opacity 0.3s ease-in;
 }
 
 .form-step.active {
@@ -168,7 +168,7 @@ body {
 }
 
 .form-container {
-    margin-top: 64px;
+    margin-top: 40px;
 }
 
 .form-container .header {
@@ -282,4 +282,57 @@ input::placeholder{
 .prev:active {
     background: #4A3AFF;
     color: white;
+}
+
+.input-container a{
+    /* Rectangle 4279 */
+
+    box-sizing: border-box;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 24px;
+    text-decoration: none;
+    transition: all 0.3s ease-in;
+    /* Neutral/100 */
+    background: #FFFFFF;
+    /* Neutral/300 */
+    border: 1px solid #EFF0F7;
+    /* Input/Default */
+    box-shadow: 0px 2px 6px rgba(19, 18, 66, 0.07);
+    border-radius: 16px;
+}
+
+.input-container a.active {
+    /* Neutral/100 */
+    background: #FFFFFF;
+    /* Primary/Color 1 */
+    border: 2px solid #4A3AFF;
+    /* Input/Focus */
+    box-shadow: 0px 2px 11px rgba(69, 65, 164, 0.06), 0px 4px 10px rgba(31, 37, 89, 0.07);
+}
+
+.input-container a:hover,
+.input-container a:focus {
+    /* Neutral/100 */
+    background: #FFFFFF;
+    /* Primary/Color 1 */
+    border: 2px solid #4A3AFF;
+    /* Input/Focus */
+    box-shadow: 0px 2px 11px rgba(69, 65, 164, 0.06), 0px 4px 10px rgba(31, 37, 89, 0.07);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .header {
+    align-items: center;
+}
+
+.container .next {
+    margin-top: 12px;
 }
