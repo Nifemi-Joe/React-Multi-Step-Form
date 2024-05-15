@@ -18,10 +18,12 @@ export const BusinessFormSchema = yup.object().shape({
       .string()
       .min(3, "Miniumum 3 characters")
       .required("Company is required"),
-  job: yup
+  phone: yup
       .string()
-      .min(3, "Miniumum 3 characters")
-      .required("Job Title is required"),
+      .min(5, "Must be atleast 5 characters")
+      .matches(phoneRules, {
+        message: "Phone number format wrong",
+      }),
 
 
 })

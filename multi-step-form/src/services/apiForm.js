@@ -9,9 +9,9 @@ export async function sendBusinessInquiry(details) {
 				name: details.name,
 				email: details.email,
 				company: details.company,
-				job: details.job,
-				message: details.message,
-				terms: details.terms
+				phone: details.phone,
+				// message: details.message,
+				// terms: details.terms
 			},
 		])
 		.select();

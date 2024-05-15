@@ -39,7 +39,7 @@ const MultiStepForm = () => {
 	const queryClient = useQueryClient();
 
 	const { isPending: isSubmitting, mutate: sendMessage } = useMutation({
-		mutationFn: sendBusinessInquiry(),
+		mutationFn: sendBusinessInquiry,
 		onSuccess: () => {
 			toast.success("Your inquiry was sent successfully");
 			queryClient.invalidateQueries({ queryKey: ["form"] });
@@ -96,7 +96,6 @@ const MultiStepForm = () => {
 									       {...register("name")}/>
 									<img src={User} alt="User"/>
 								</div>
-								{errors.name.message}
 							</div>
 							<div className="input-container">
 								<label htmlFor="email">Email</label>
@@ -105,7 +104,6 @@ const MultiStepForm = () => {
 									       {...register("email")}/>
 									<img src={Email} alt="Email"/>
 								</div>
-								{errors.email.message}
 							</div>
 							<div className="input-container">
 								<label htmlFor="phone">Phone Number</label>
@@ -114,7 +112,6 @@ const MultiStepForm = () => {
 									       {...register("phone")}/>
 									<img src={Phone} alt="Phone"/>
 								</div>
-								{errors.phone.message}
 							</div>
 							<div className="input-container">
 								<label htmlFor="company">Company</label>
@@ -123,7 +120,6 @@ const MultiStepForm = () => {
 									       {...register("company")}/>
 									<img src={Company} alt="Company"/>
 								</div>
-								{errors.company.message}
 							</div>
 						</div>
 					</form>
