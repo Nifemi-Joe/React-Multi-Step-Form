@@ -10,6 +10,12 @@ import Other from "../../img/other.png"
 import Radio from "../../img/radio.svg"
 import Radioactive from "../../img/radioactive.svg"
 import Submit from "../../img/submit.svg"
+import { useMutation, useQueryClient } from "react-query";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import {useYupValidationResolver} from "../../services/Resolver";
+import {BusinessFormSchema} from "../../services/validationSchema";
+import {sendBusinessInquiry} from "../../services/apiForm";
 
 const MultiStepForm = () => {
 	const [step, setStep] = useState(1);
@@ -20,6 +26,32 @@ const MultiStepForm = () => {
 
 	const prevStep = () => {
 		setStep(step - 1);
+	};
+	const resolver = useYupValidationResolver(BusinessFormSchema);
+	const {
+		handleSubmit,
+		register,
+		reset,
+		formState: { errors },
+	} = useForm({ resolver });
+	// } = useForm({ defaultValues });
+
+	const queryClient = useQueryClient();
+
+	const { isPending: isSubmitting, mutate: sendMessage } = useMutation({
+		mutationFn: sendBusinessInquiry(),
+		onSuccess: () => {
+			toast.success("Your inquiry was sent successfully");
+			queryClient.invalidateQueries({ queryKey: ["form"] });
+			reset();
+		},
+		onError: (err) => toast.error(err.message),
+	});
+
+	const onSubmit = (inquiry) => {
+		sendMessage(inquiry);
+
+		reset();
 	};
 
 	return (
@@ -60,30 +92,38 @@ const MultiStepForm = () => {
 							<div className="input-container">
 								<label htmlFor="name">Name</label>
 								<div className="position-absolute">
-									<input id="name" type="text" name="name" placeholder="John Carter"/>
+									<input id="name" type="text" name="name" placeholder="John Carter" disabled={isSubmitting}
+									       {...register("name")}/>
 									<img src={User} alt="User"/>
 								</div>
+								{errors.name.message}
 							</div>
 							<div className="input-container">
 								<label htmlFor="email">Email</label>
 								<div className="position-absolute">
-									<input id="email" type="email" name="email" placeholder="Email address"/>
+									<input id="email" type="email" name="email" placeholder="Email address" disabled={isSubmitting}
+									       {...register("email")}/>
 									<img src={Email} alt="Email"/>
 								</div>
+								{errors.email.message}
 							</div>
 							<div className="input-container">
 								<label htmlFor="phone">Phone Number</label>
 								<div className="position-absolute">
-									<input id="phone" type="phone" name="phone" placeholder="(123) 456 - 7890"/>
+									<input id="phone" type="phone" name="phone" placeholder="(123) 456 - 7890" disabled={isSubmitting}
+									       {...register("phone")}/>
 									<img src={Phone} alt="Phone"/>
 								</div>
+								{errors.phone.message}
 							</div>
 							<div className="input-container">
 								<label htmlFor="company">Company</label>
 								<div className="position-absolute">
-									<input id="company" type="company" name="company" placeholder="Company name"/>
+									<input id="company" type="company" name="company" placeholder="Company name" disabled={isSubmitting}
+									       {...register("company")}/>
 									<img src={Company} alt="Company"/>
 								</div>
+								{errors.company.message}
 							</div>
 						</div>
 					</form>
@@ -130,7 +170,7 @@ const MultiStepForm = () => {
 								<p>Please review all the information you previously typed in the past steps, and if all
 									is okay, submit your message to receive a project quote in 24 - 48 hours.</p>
 							</div>
-							<button onClick={nextStep} className="next">Submit</button>
+							<button onClick={handleSubmit(onSubmit)} className="next">{isSubmitting ? "Loading..." : "Submit"}</button>
 						</div>
 					</form>
 				</div>
